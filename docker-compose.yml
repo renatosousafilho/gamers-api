@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  backend:
+    build: .
+    container_name: api_gamers
+    command: npm run dev
+    restart: always
+    volumes:
+      - ./src:/app/src
+      - .sequelizerc:/.sequelizerc
+    ports:
+      - 3001:3001
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: api_gamers_development
+      MYSQL_HOST: db
+  db:
+    container_name: api_gamers_db
+    image: mysql:8.0.32
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
